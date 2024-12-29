@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <!-- Background -->
+    <rect width="32" height="32" fill="#8bca4b" rx="6"/>
+    
+    <!-- Pigeon -->
+    <g transform="translate(6,6) scale(0.6)">
+        <!-- Basic pigeon shape -->
+        <path d="M15,10 C25,10 30,15 30,25 C30,35 25,40 15,40 C5,40 0,35 0,25 C0,15 5,10 15,10" 
+              fill="#c5c5c5" stroke="#2c4870" stroke-width="2"/>
+        <!-- Head -->
+        <circle cx="8" cy="20" r="6" fill="#c5c5c5" stroke="#2c4870" stroke-width="2"/>
+        <!-- Eye -->
+        <circle cx="7" cy="19" r="1.5" fill="#2c4870"/>
+        <!-- Beak -->
+        <path d="M4,20 L0,22 L4,24" fill="none" stroke="#2c4870" stroke-width="2" stroke-linecap="round"/>
+        <!-- Top hat -->
+        <rect x="4" y="8" width="8" height="6" fill="#2c4870"/>
+        <rect x="2" y="13" width="12" height="1" fill="#2c4870"/>
+    </g>
+</svg>

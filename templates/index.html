@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The Boring Pigeon - AI Virtual Pet</title>
+
+        <!-- SEO Meta Tags -->
+        <meta
+            name="description"
+            content="Meet your new virtual pet - a delightfully quirky pigeon created by AI! Experience a unique digital companion that reacts to weather, dresses up, and develops its own personality. 🐦✨"
+        />
+        <meta
+            name="keywords"
+            content="virtual pet, AI-created pet, digital pigeon, tamagotchi, virtual companion, digital pet"
+        />
+        <meta name="author" content="The Boring Agent" />
+        <meta name="robots" content="index, follow" />
+
+        <!-- Open Graph Meta Tags for Social Media -->
+        <meta
+            property="og:title"
+            content="The Boring Pigeon - Your AI-Created Virtual Pet 🐦"
+        />
+        <meta
+            property="og:description"
+            content="Discover a unique virtual pigeon crafted by AI! Watch it hunt for food, dress up in cute accessories, and react to real-world weather. A charming digital companion with a distinct personality. 🎮✨"
+        />
+        <meta
+            property="og:image"
+            content="https://boringpigeon.fun/static/icons/social-preview.png"
+        />
+        <meta property="og:url" content="https://boringpigeon.fun" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="The Boring Pigeon" />
+
+        <!-- Twitter Card Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+            name="twitter:title"
+            content="Meet Your New Virtual Pigeon Friend 🐦"
+        />
+        <meta
+            name="twitter:description"
+            content="Say hello to a delightful virtual pet created through AI! This charming pigeon lives its own life, makes fashion choices, and responds to weather. Not so boring after all! 🎮🌟"
+        />
+        <meta
+            name="twitter:image"
+            content="https://boringpigeon.fun/static/icons/social-preview.png"
+        />
+
+        <!-- PWA Meta Tags -->
+        <meta name="theme-color" content="#8bca4b" />
+        <meta
+            name="description"
+            content="A fully autonomous boring pigen programmed by AI"
+        />
+        <link
+            rel="manifest"
+            href="{{ url_for('static', filename='manifest.json') }}"
+        />
+        <link
+            rel="apple-touch-icon"
+            href="{{ url_for('static', filename='icons/icon-192x192.png') }}"
+        />
+
+        <!-- Favicon -->
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{ url_for('static', filename='icons/favicon-32x32.png') }}"
+            sizes="32x32"
+        />
+        <link
+            rel="alternate icon"
+            type="image/png"
+            href="{{ url_for('static', filename='icons/favicon-16x16.png') }}"
+            sizes="16x16"
+        />
+        <link
+            rel="apple-touch-icon"
+            href="{{ url_for('static', filename='icons/icon-192x192.png') }}"
+        />
+
+        <!-- Fonts and Styles -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/style.css') }}"
+        />
+        <!-- Load Tone.js first -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    </head>
+    <body>
+        <div id="start-screen" class="start-screen">
+            <!-- Start button initially disabled -->
+            <button id="refresh" onclick="loadGame()" class="action-btn">
+                Start
+            </button>
+            <div class="social-links">
+                <a
+                    href="https://x.com/boringpigeon"
+                    target="_blank"
+                    class="social-link"
+                >
+                    <span class="icon">🐦</span>
+                    <span class="text">X (Twitter)</span>
+                </a>
+                <a
+                    href="https://boringpigeon.fun/"
+                    target="_blank"
+                    class="social-link"
+                >
+                    <span class="icon">🌐</span>
+                    <span class="text">Website</span>
+                </a>
+                <!-- <a href="#" class="social-link" id="tokenButton">
+                    <span class="icon">🪙</span>
+                    <span class="text">Get $PIGEON</span>
+                </a> -->
+            </div>
+            <div class="credits start-credits">
+                Created with ❤️ by The Boring Agent
+            </div>
+        </div>
+        <div id="gcontainer" class="game-container" style="visibility: hidden">
+            <div class="game-boy">
+                <div class="screen-container">
+                    <canvas id="gameCanvas" width="320" height="320"></canvas>
+                    <div class="stats">
+                        <div class="stat">
+                            Hunger: <span id="hungerStat">100</span>
+                        </div>
+                        <div class="stat">
+                            Energy: <span id="energyStat">100</span>
+                        </div>
+                        <div class="stat">
+                            Happy: <span id="happinessStat">100</span>
+                        </div>
+                        <div class="stat">
+                            Temp: <span id="tempStat">--</span>°C
+                        </div>
+
+                        <!-- <div class="stat evolution-stat">
+                            Evolution
+                            <div class="evolution-progress">
+                                <div
+                                    class="progress-bar"
+                                    id="evolutionProgress"
+                                    style="width: 30%"
+                                ></div>
+                                <div class="evolution-text" id="evolutionText">
+                                    300/1000
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!-- Add message display area -->
+                    <div class="message-display" id="messageDisplay"></div>
+                    <!-- Single tooltip that will be reused -->
+                    <div class="tooltip"></div>
+                </div>
+                <div class="scrollable-section">
+                    <!-- Add new donation bar -->
+                    <div style="font-size: 12px">donate</div>
+                    <div class="donation-bar">
+                        <button
+                            class="donation-btn message-btn"
+                            data-item="message"
+                            data-cost="0.004"
+                        >
+                            <span class="emoji">📢</span>
+                        </button>
+
+                        <button
+                            class="donation-btn"
+                            data-item="fish"
+                            data-cost="0.002"
+                        >
+                            <span class="emoji">🐟</span>
+                        </button>
+
+                        <button
+                            class="donation-btn"
+                            data-item="evergreen"
+                            data-cost="0.002"
+                        >
+                            <span class="emoji">🌲</span>
+                        </button>
+
+                        <button
+                            class="donation-btn"
+                            data-item="launch"
+                            data-cost="0.002"
+                        >
+                            <span class="emoji">🚀</span>
+                        </button>
+
+                        <button
+                            class="donation-btn"
+                            data-item="grass"
+                            data-cost="0.002"
+                        >
+                            <span class="emoji">🌿</span>
+                        </button>
+                        <button
+                            class="donation-btn"
+                            data-item="rose"
+                            data-cost="0.002"
+                        >
+                            <span class="emoji">🌹</span>
+                        </button>
+                        <button
+                            class="donation-btn"
+                            data-item="bird"
+                            data-cost="0.002"
+                        >
+                            <span class="emoji">🐦</span>
+                        </button>
+                        <button
+                            class="donation-btn"
+                            data-item="heart"
+                            data-cost="0.002"
+                        >
+                            <span class="emoji">❤️</span>
+                        </button>
+                    </div>
+
+                    <div class="controls">
+                        <button id="feedBtn" class="action-btn">Feed</button>
+                        <button id="sleepBtn" class="action-btn">Sleep</button>
+                        <button id="cleanBtn" class="action-btn">Clean</button>
+                        <button id="roarBtn" class="action-btn">Coo</button>
+                        <button id="huntBtn" class="action-btn">Hunt</button>
+                    </div>
+                    <div class="accessories">
+                        <div class="accessory-section">
+                            <h3>Accessories</h3>
+                            <div class="accessory-slots">
+                                <div class="accessory-slot">
+                                    <label>Hat:</label>
+                                    <select id="hatSelect">
+                                        <option value="">None</option>
+                                    </select>
+                                </div>
+                                <div class="accessory-slot">
+                                    <label>Necklace:</label>
+                                    <select id="necklaceSelect">
+                                        <option value="">None</option>
+                                    </select>
+                                </div>
+                                <div class="accessory-slot">
+                                    <label>Jacket:</label>
+                                    <select id="jacketSelect">
+                                        <option value="">None</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest donations section -->
+                    <div class="latest-donations">
+                        <h3>Latest Donations</h3>
+                        <div class="donations-list" id="donationsList">
+                            <!-- Donations will be added here dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="credits">
+                        Created with ❤️ by The Boring Agent
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Message input modal -->
+        <div id="messageModal" class="modal">
+            <div class="modal-content">
+                <h2>Send a Message</h2>
+                <div class="message-input-container">
+                    <input
+                        type="text"
+                        id="messageInput"
+                        maxlength="24"
+                        placeholder="Enter your message (max 24 chars)"
+                    />
+                    <div class="char-counter">0/24</div>
+                </div>
+                <div class="modal-buttons">
+                    <button class="modal-btn cancel-btn" id="cancelMessage">
+                        Cancel
+                    </button>
+                    <button class="modal-btn proceed-btn" id="sendMessage">
+                        Send (0.004 SOL)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add wallet connection modal -->
+        <div id="walletModal" class="modal">
+            <div class="modal-content">
+                <h2>Connect Wallet</h2>
+                <p>Please connect your Phantom wallet to make donations</p>
+                <div class="modal-buttons">
+                    <button
+                        id="connectWalletModal"
+                        class="modal-btn proceed-btn"
+                    >
+                        Connect Phantom
+                    </button>
+                    <button
+                        class="modal-btn cancel-btn"
+                        onclick="closeWalletModal()"
+                    >
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Token Disclaimer Modal -->
+        <div id="disclaimerModal" class="modal"></div>
+
+        <!-- Register Service Worker -->
+        <script>
+            if ("serviceWorker" in navigator) {
+                window.addEventListener("load", () => {
+                    navigator.serviceWorker
+                        .register("/static/js/sw.js")
+                        .then((registration) => {
+                            console.log(
+                                "ServiceWorker registration successful",
+                            );
+                        })
+                        .catch((err) => {
+                            console.log(
+                                "ServiceWorker registration failed: ",
+                                err,
+                            );
+                        });
+                });
+            }
+        </script>
+
+        <!-- Load game.js last -->
+        <script src="{{ url_for('static', filename='js/donation.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/reactions.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/disclaimer.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/pet.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/sounds.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+        <!-- Add Solana scripts -->
+        <script src="https://bundle.run/buffer@6.0.3"></script>
+        <script>
+            window.Buffer = buffer.Buffer;
+        </script>
+        <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+    </body>
+</html>

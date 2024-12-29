@@ -1,0 +1,49 @@
+{
+    "name": "The Boring Pigeon",
+    "short_name": "Pet Pigeon",
+    "description": "A fully autonomous boring pigeon programmed by AI",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#c5c5c5",
+    "theme_color": "#8bca4b",
+    "icons": [
+        {
+            "src": "/static/icons/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/icons/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/static/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/static/screenshots/wide.png",
+            "sizes": "1920x1080",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Homescreen of Boring Pigeon"
+        },
+        {
+            "src": "/static/screenshots/narrow.png",
+            "sizes": "1080x1920",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Mobile view of Boring Pigeon"
+        }
+    ]
+}

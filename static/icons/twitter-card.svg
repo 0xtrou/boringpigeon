@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="418" viewBox="0 0 800 418">
+    <!-- Background -->
+    <rect width="800" height="418" fill="#8bca4b"/>
+    
+    <!-- Decorative pattern -->
+    <circle cx="400" cy="209" r="150" fill="#2c4870" opacity="0.1"/>
+    
+    <!-- Pigeon -->
+    <g transform="translate(325,109) scale(1.5)">
+        <!-- Basic pigeon shape -->
+        <path d="M50,25 C70,25 85,40 85,60 C85,80 70,95 50,95 C30,95 15,80 15,60 C15,40 30,25 50,25" 
+              fill="#c5c5c5" stroke="#2c4870" stroke-width="3"/>
+        <!-- Head -->
+        <circle cx="35" cy="45" r="15" fill="#c5c5c5" stroke="#2c4870" stroke-width="3"/>
+        <!-- Eye -->
+        <circle cx="32" cy="42" r="3" fill="#2c4870"/>
+        <!-- Beak -->
+        <path d="M25,45 L15,48 L25,51" fill="none" stroke="#2c4870" stroke-width="3" stroke-linecap="round"/>
+        <!-- Wing -->
+        <path d="M50,45 C60,45 65,55 65,65 C65,75 60,85 50,85" 
+              fill="none" stroke="#2c4870" stroke-width="3"/>
+        <!-- Bow tie -->
+        <path d="M45,60 L35,55 L45,50 M45,60 L55,55 L45,50" 
+              fill="none" stroke="#f7e34b" stroke-width="3"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="400" y="80" 
+          font-family="'Press Start 2P', monospace" 
+          font-size="32" 
+          fill="#2c4870" 
+          text-anchor="middle">
+        Meet Your AI Pigeon!
+    </text>
+    
+    <!-- Subtitle -->
+    <text x="400" y="340" 
+          font-family="'Press Start 2P', monospace" 
+          font-size="16" 
+          fill="#2c4870" 
+          text-anchor="middle">
+        A not-so-boring virtual pet with real personality
+    </text>
+    
+    <!-- Emoji icons -->
+    <text x="250" y="209" font-size="32" text-anchor="middle">🎮</text>
+    <text x="550" y="209" font-size="32" text-anchor="middle">✨</text>
+</svg>
